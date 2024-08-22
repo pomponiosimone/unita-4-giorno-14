@@ -3,11 +3,23 @@ package pomponiosimone.entites;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("CALCIO")
+@NamedQueries({
+        @NamedQuery(
+                name = "PartitaDiCalcio.getPartiteVinteInCasa",
+                query = "SELECT p FROM PartitaDiCalcio p WHERE p.squadraCasa = p.squadraVincente"
+        ),
+        @NamedQuery(
+                name = "PartitaDiCalcio.getPartiteVinteInTrasferta",
+                query = "SELECT p FROM PartitaDiCalcio p WHERE p.squadraOspite = p.squadraVincente"
+        )
+})
 public class PartitaDiCalcio extends Evento {
     private String squadraCasa;
     private String squadraOspite;

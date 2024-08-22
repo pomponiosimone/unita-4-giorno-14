@@ -3,6 +3,7 @@ package pomponiosimone.DAO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import pomponiosimone.entites.PartitaDiCalcio;
 import pomponiosimone.entities.Concerto;
 
 import java.util.List;
@@ -25,6 +26,16 @@ public class EventoDAO {
         String jpql = "SELECT c FROM Concerto c WHERE c.genere = :genere";
         TypedQuery<Concerto> query = entityManager.createQuery(jpql, Concerto.class);
         query.setParameter("genere", genere);
+        return query.getResultList();
+    }
+
+    public List<PartitaDiCalcio> getPartiteVinteInCasa() {
+        TypedQuery<PartitaDiCalcio> query = entityManager.createNamedQuery("PartitaDiCalcio.getPartiteVinteInCasa", PartitaDiCalcio.class);
+        return query.getResultList();
+    }
+
+    public List<PartitaDiCalcio> getPartiteVinteInTrasferta() {
+        TypedQuery<PartitaDiCalcio> query = entityManager.createNamedQuery("PartitaDiCalcio.getPartiteVinteInTrasferta", PartitaDiCalcio.class);
         return query.getResultList();
     }
 }

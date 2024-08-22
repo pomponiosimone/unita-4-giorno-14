@@ -3,6 +3,7 @@ package pomponiosimone.entities;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import pomponiosimone.entites.Evento;
 
 import java.util.Date;
 

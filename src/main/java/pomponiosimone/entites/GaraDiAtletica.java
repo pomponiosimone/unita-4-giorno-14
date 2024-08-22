@@ -1,81 +1,46 @@
-package pomponiosimone.entites;
-
-
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import pomponiosimone.entites.Evento;
+import pomponiosimone.entites.Persona;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@DiscriminatorValue("CALCIO")
-public class PartitaDiCalcio extends Evento {
-    private String squadraCasa;
-    private String squadraOspite;
-    private String squadraVincente;
-    private int numeroGolSquadraCasa;
-    private int numeroGolSquadraOspite;
+@DiscriminatorValue("ATLETICA")
+public class GaraDiAtletica extends Evento {
+    @ManyToMany
+    private Set<Persona> atleti;
+
+    @ManyToOne
+    private Persona vincitore;
 
     // Costruttori, getters, setters
-    public PartitaDiCalcio() {
+    public GaraDiAtletica() {
     }
 
-    public PartitaDiCalcio(String nome, Date data, String squadraCasa, String squadraOspite, int numeroGolSquadraCasa, int numeroGolSquadraOspite) {
+    public GaraDiAtletica(String nome, Date data, Set<Persona> atleti, Persona vincitore) {
         super(nome, data);
-        this.squadraCasa = squadraCasa;
-        this.squadraOspite = squadraOspite;
-        this.numeroGolSquadraCasa = numeroGolSquadraCasa;
-        this.numeroGolSquadraOspite = numeroGolSquadraOspite;
-        this.squadraVincente = determinaSquadraVincente();
-    }
-
-    private String determinaSquadraVincente() {
-        if (numeroGolSquadraCasa > numeroGolSquadraOspite) {
-            return squadraCasa;
-        } else if (numeroGolSquadraCasa < numeroGolSquadraOspite) {
-            return squadraOspite;
-        } else {
-            return null; // Pareggio
-        }
+        this.atleti = atleti;
+        this.vincitore = vincitore;
     }
 
     // Getters e setters
-    public String getSquadraCasa() {
-        return squadraCasa;
+    public Set<Persona> getAtleti() {
+        return atleti;
     }
 
-    public void setSquadraCasa(String squadraCasa) {
-        this.squadraCasa = squadraCasa;
+    public void setAtleti(Set<Persona> atleti) {
+        this.atleti = atleti;
     }
 
-    public String getSquadraOspite() {
-        return squadraOspite;
+    public Persona getVincitore() {
+        return vincitore;
     }
 
-    public void setSquadraOspite(String squadraOspite) {
-        this.squadraOspite = squadraOspite;
-    }
-
-    public String getSquadraVincente() {
-        return squadraVincente;
-    }
-
-    public void setSquadraVincente(String squadraVincente) {
-        this.squadraVincente = squadraVincente;
-    }
-
-    public int getNumeroGolSquadraCasa() {
-        return numeroGolSquadraCasa;
-    }
-
-    public void setNumeroGolSquadraCasa(int numeroGolSquadraCasa) {
-        this.numeroGolSquadraCasa = numeroGolSquadraCasa;
-    }
-
-    public int getNumeroGolSquadraOspite() {
-        return numeroGolSquadraOspite;
-    }
-
-    public void setNumeroGolSquadraOspite(int numeroGolSquadraOspite) {
-        this.numeroGolSquadraOspite = numeroGolSquadraOspite;
+    public void setVincitore(Persona vincitore) {
+        this.vincitore = vincitore;
     }
 }
